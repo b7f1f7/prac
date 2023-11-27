@@ -96,6 +96,14 @@ void multFixedLen(int a[5],int multiplier,int len)
 
 void arr5(void)
 {
+    //chapter 6.6.2
+    /*
+     each of these functions performs the exact same task,
+     however, they each take a different form as input. the compiler generally
+     will not care what form the array comes in - as all it is is a pointer to the start of the array.
+     with that said, the size of the array will be enforced with multidimensional arrays.
+
+     */
     int x[5] = {1,2,3,4,5};
     int len = ArrSize(x);
     multArray(x,2,len);
@@ -104,7 +112,57 @@ void arr5(void)
 }
 
 
+void double_array(int *a, int len)
+{
+    for(int i = 0; i < len;i++ ){
+        a[i] *=2;
+    }
+}
 
+void arr6(void)
+{
+    //chapter 6.6.3
+    /*
+      despite the array being passed as a parameter, the pointer can still be accessed positionally as
+      if it were an array. This is todo with the equivalence between arrays and pointers; which will be covered later.
+      apparently.
+     */
+    int x[5] = {1,2,3,4,5};
+    double_array(x, ArrSize(x));
+
+    for(int i=0;i<ArrSize(x);i++)
+    {
+        printf("%d\n", x[i]);
+    }
+}
+
+void print_2D_array(int a[2][3])
+{
+    for(int row=0; row < 2; row++) {
+        for (int col = 0; col < 3; col++)
+            printf("%d ", a[row][col]);
+        printf("\n");
+    }
+}
+
+void arr7(void)
+{
+    //chapter 6.6.4
+    /*
+     this function takes a 2D array as an input, C requires the final dimension to be declared in order to know how
+     far in memory to skip for each increment of the first dimension; so it does not need the first dimension.
+     so, this function could state:
+        void print_2D_array(int a[][3])
+                    or
+        void print_2D_array(int (*a)[3])
+    and function exactly the same without errors.
+     */
+    int x[2][3] = {
+        {1,2,3},
+        {4,5,6}
+    };
+    print_2D_array(x);
+}
 int main(void){
 
     int exno;
@@ -126,6 +184,12 @@ int main(void){
             break;
         case 5:
             arr5();
+            break;
+        case 6:
+            arr6();
+            break;
+        case 7:
+            arr7();
             break;
         default:
             printf("not an exercise");
